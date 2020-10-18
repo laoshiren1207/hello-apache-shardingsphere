@@ -1,0 +1,70 @@
+server:
+  port: 32220
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: sharding-jdbc
+  shardingsphere:
+    props:
+      sql:
+        show: true
+    datasource:
+      # 分库分表
+      names: ds0,ds1
+      # 数据库0
+      ds0:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://192.168.8.50:3306/db_order_0?useUnicode=true&characterEncoding=utf-8&serverTimezone=Hongkong&useSSL=false
+        username: root
+        password: root
+        hikari:
+          minimum-idle: 5
+          idle-timeout: 600000
+          maximum-pool-size: 10
+          auto-commit: true
+          pool-name: MyHikariCP
+          max-lifetime: 1800000
+          connection-timeout: 30000
+          connection-test-query: SELECT 1
+      ds1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://192.168.8.50:3306/db_order_1?useUnicode=true&characterEncoding=utf-8&serverTimezone=Hongkong&useSSL=false
+        username: root
+        password: root
+        hikari:
+          minimum-idle: 5
+          idle-timeout: 600000
+          maximum-pool-size: 10
+          auto-commit: true
+          pool-name: MyHikariCP
+          max-lifetime: 1800000
+          connection-timeout: 30000
+          connection-test-query: SELECT 1
+    # 分库规则
+    sharding:
+      # 模型表 ,分隔
+      binding-tables: tb_order
+      default-database-strategy:
+        inline:
+          # user_id 对2取余
+          algorithm-expression: ds$->{user_id % 2}
+          sharding-column: user_id
+      tables:
+        tb_order:
+          actual-data-nodes: ds$->{0..1}.tb_order_$->{0..1}
+          table-strategy:
+            inline:
+              algorithm-expression: tb_order_$->{order_id % 2}
+              sharding-column: order_id
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  typeAliasesPackage: com.laoshiren.hello.apache.shardingsphere.domain
+
+logging:
+  level:
+    com.laoshiren.hello.apache.shardingsphere.mapper: info
