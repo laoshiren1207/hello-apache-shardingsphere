@@ -103,12 +103,12 @@ db_member_9
 
 <img src="https://shardingsphere.apache.org/document/legacy/4.x/document/img/sharding-jdbc-brief.png" style="zoom:65%;" />
 
-实际参考项目 `hello-sharding-jdbc` [项目地址](http://git.pharmakeyring.com:9091/xiangdehua/hello-apache-shardingsphere/tree/master/hello-sharding-jdbc)
+实际参考项目 `hello-sharding-jdbc` [项目地址](https://github.com/laoShiRen1207/hello-apache-shardingsphere/tree/master/hello-sharding-jdbc)
 
 
 ### Sharding-Proxy (TBD)
 
-实际参考项目`hello-sharding-proxy`[项目地址](http://git.pharmakeyring.com:9091/xiangdehua/hello-apache-shardingsphere/tree/master/hello-sharding-proxy)
+实际参考项目`hello-sharding-proxy`[项目地址](https://github.com/laoShiRen1207/hello-apache-shardingsphere/tree/master/hello-sharding-proxy)
 
 
 
